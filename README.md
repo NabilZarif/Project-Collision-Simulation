@@ -1,2 +1,3 @@
 # Project-Collision-Simulation
-Project Mata Kuliah Struktur Data 
+Project mata kuliah Struktur Data dari Pak Arta, membuat program collision bola bergerak dan memantul. Jika memantul maka akan menghasilkan kecepatan tambahan dari bola.
+

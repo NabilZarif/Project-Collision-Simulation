@@ -5,7 +5,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <memory>
-#include <optional> // Wajib untuk SFML 3.0
+#include <optional> 
 
 using namespace std;
 
@@ -41,14 +41,12 @@ struct Ball {
 
     void draw(sf::RenderWindow& window) {
         sf::CircleShape circle(radius);
-        // SFML 3.0: Posisi menggunakan kurung kurawal {}
         circle.setPosition({x - radius, y - radius}); 
         circle.setFillColor(color);
         window.draw(circle);
     }
 
     sf::FloatRect getBounds() {
-        // SFML 3.0: Rect menggunakan {posisi}, {ukuran}
         return sf::FloatRect({x - radius, y - radius}, {radius * 2, radius * 2});
     }
 };
@@ -62,7 +60,6 @@ struct Rectangle {
                 ball->y >= y && ball->y <= y + h);
     }
 
-    // SFML 3.0: Akses manual .position dan .size
     bool intersects(const sf::FloatRect& range) {
         return !(range.position.x > x + w ||
                  range.position.x + range.size.x < x ||
@@ -119,12 +116,10 @@ public:
     }
 
     void query(sf::FloatRect range, vector<Ball*>& found) {
-        // Cek manual intersection agar kompatibel SFML 3.0
         if (!boundary.intersects(range)) return;
 
         for (Ball* b : balls) {
             sf::FloatRect bRect = b->getBounds();
-            // Manual Collision Check (AABB)
             if (range.position.x < bRect.position.x + bRect.size.x &&
                 range.position.x + range.size.x > bRect.position.x &&
                 range.position.y < bRect.position.y + bRect.size.y &&
@@ -178,7 +173,6 @@ void resolveCollision(Ball* b1, Ball* b2) {
 int main() {
     srand(static_cast<unsigned int>(time(0)));
 
-    // SFML 3.0: VideoMode butuh kurung kurawal {}
     sf::RenderWindow window(sf::VideoMode({WINDOW_WIDTH, WINDOW_HEIGHT}), "SFML 3.0: Quadtree vs Brute Force");
     window.setFramerateLimit(60);
 
@@ -197,8 +191,8 @@ int main() {
                 window.close();
             }
         }
-
-        // 1. Update
+        
+        // 1. Update Posisi Bola
         for (auto& ball : balls) ball.update();
 
         // 2. Deteksi Tumbukan

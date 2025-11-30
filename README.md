@@ -6,7 +6,8 @@ Nama : Moh. Nabil Zarif Rofif
 NRP  : 5024241038
 
 # Overview
-Project ini mensimulasikan N-body physics menggunakan Euler Integration untuk pergerakan. Untuk deteksi tabrakan, saya membandingkan performa antara metode Brute Force ($O(N^2)$) dengan optimasi Quadtree ($O(N \log N)$) yang membagi ruang simulasi secara rekursif untuk mengurangi jumlah pengecekan yang tidak perlu
+Project ini mensimulasikan N-body physics menggunakan Euler Integration untuk pergerakan. Untuk deteksi tabrakan, saya membandingkan performa antara metode Brute Force dengan optimasi Quadtree yang membagi ruang simulasi secara rekursif untuk mengurangi jumlah pengecekan yang tidak perlu
+
 
 
 

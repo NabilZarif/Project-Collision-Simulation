@@ -6,8 +6,15 @@ Nama : Moh. Nabil Zarif Rofif
 NRP  : 5024241038
 
 # Overview
-Project ini mensimulasikan N-body physics menggunakan Euler Integration untuk pergerakan. Untuk deteksi tabrakan, saya membandingkan performa antara metode Brute Force dengan optimasi Quadtree yang membagi ruang simulasi secara rekursif untuk mengurangi jumlah pengecekan yang tidak perlu
+Project ini mensimulasikan N-body physics menggunakan Euler Integration untuk pergerakan. Untuk deteksi tabrakan, saya membandingkan performa antara metode Brute Force dengan optimasi Quadtree yang membagi ruang simulasi secara rekursif untuk mengurangi jumlah pengecekan yang tidak perlu. Sesuatu yang membedakan project ini dengan collision simulation yang lain adalah saya membuat jika bola memantul pada batas vertikal maka bola akan semakin kencang, sedangkan jika memantul pada batas horizontal maka akan semakin lambat.
 
+# Tool Yang Digunakan
+- SFML 3.0.2
+- C++ 17
+
+# Algoritma Yang Digunakan
+- Brute Force
+- Quadtree
 
 
 

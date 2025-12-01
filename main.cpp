@@ -9,13 +9,16 @@
 
 using namespace std;
 
-// --- KONFIGURASI ---
 const unsigned int WINDOW_WIDTH = 800;
 const unsigned int WINDOW_HEIGHT = 600;
 const int NUM_BALLS = 50; 
 const bool USE_QUADTREE = true; 
 
-// --- STRUKTUR DATA BOLA ---
+const float SPEED_UP = 1.1f;    
+const float SLOW_DOWN = 0.9f;   
+const float MAX_SPEED = 15.0f;  
+const float MIN_SPEED = 1.0f;   
+
 struct Ball {
     float x, y;
     float vx, vy;
@@ -33,10 +36,33 @@ struct Ball {
         x += vx;
         y += vy;
 
-        if (x - radius < 0) { x = radius; vx *= -1; }
-        if (x + radius > (float)WINDOW_WIDTH) { x = (float)WINDOW_WIDTH - radius; vx *= -1; }
-        if (y - radius < 0) { y = radius; vy *= -1; }
-        if (y + radius > (float)WINDOW_HEIGHT) { y = (float)WINDOW_HEIGHT - radius; vy *= -1; }
+        if (x - radius < 0) { 
+            x = radius; 
+            vx *= -SLOW_DOWN; 
+
+            if (abs(vx) < MIN_SPEED) vx = (vx > 0 ? MIN_SPEED : -MIN_SPEED);
+        }
+
+        if (x + radius > (float)WINDOW_WIDTH) { 
+            x = (float)WINDOW_WIDTH - radius; 
+            vx *= -SLOW_DOWN; 
+
+            if (abs(vx) < MIN_SPEED) vx = (vx > 0 ? MIN_SPEED : -MIN_SPEED);
+        }
+
+        if (y - radius < 0) { 
+            y = radius; 
+            vy *= -SPEED_UP; 
+
+            if (abs(vy) > MAX_SPEED) vy = (vy > 0 ? MAX_SPEED : -MAX_SPEED);
+        }
+
+        if (y + radius > (float)WINDOW_HEIGHT) { 
+            y = (float)WINDOW_HEIGHT - radius; 
+            vy *= -SPEED_UP; 
+
+            if (abs(vy) > MAX_SPEED) vy = (vy > 0 ? MAX_SPEED : -MAX_SPEED);
+        }
     }
 
     void draw(sf::RenderWindow& window) {
@@ -51,7 +77,6 @@ struct Ball {
     }
 };
 
-// --- STRUKTUR DATA QUADTREE ---
 struct Rectangle {
     float x, y, w, h;
     
@@ -137,7 +162,6 @@ public:
     }
 };
 
-// --- FUNGSI FISIKA ---
 void resolveCollision(Ball* b1, Ball* b2) {
     float dx = b2->x - b1->x;
     float dy = b2->y - b1->y;
@@ -169,11 +193,10 @@ void resolveCollision(Ball* b1, Ball* b2) {
     }
 }
 
-// --- PROGRAM UTAMA ---
 int main() {
     srand(static_cast<unsigned int>(time(0)));
 
-    sf::RenderWindow window(sf::VideoMode({WINDOW_WIDTH, WINDOW_HEIGHT}), "SFML 3.0: Quadtree vs Brute Force");
+    sf::RenderWindow window(sf::VideoMode({WINDOW_WIDTH, WINDOW_HEIGHT}), "SFML 3.0: Speed Up/Slow Down Walls");
     window.setFramerateLimit(60);
 
     vector<Ball> balls;
@@ -185,17 +208,14 @@ int main() {
     }
 
     while (window.isOpen()) {
-        // SFML 3.0: Event Polling Baru
         while (const auto event = window.pollEvent()) {
             if (event->is<sf::Event::Closed>()) {
                 window.close();
             }
         }
-        
-        // 1. Update Posisi Bola
+
         for (auto& ball : balls) ball.update();
 
-        // 2. Deteksi Tumbukan
         if (!USE_QUADTREE) {
             for (size_t i = 0; i < balls.size(); i++) {
                 for (size_t j = i + 1; j < balls.size(); j++) {
@@ -217,7 +237,6 @@ int main() {
             }
         }
 
-        // 3. Render
         window.clear(sf::Color::Black);
         for (auto& ball : balls) ball.draw(window);
         window.display();

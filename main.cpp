@@ -11,8 +11,7 @@ using namespace std;
 
 const unsigned int WINDOW_WIDTH = 800;
 const unsigned int WINDOW_HEIGHT = 600;
-const int NUM_BALLS = 50; 
-const bool USE_QUADTREE = true; 
+const int NUM_BALLS = 100; 
 
 const float SPEED_UP = 1.1f;    
 const float SLOW_DOWN = 0.9f;   
@@ -39,28 +38,24 @@ struct Ball {
         if (x - radius < 0) { 
             x = radius; 
             vx *= -SLOW_DOWN; 
-
             if (abs(vx) < MIN_SPEED) vx = (vx > 0 ? MIN_SPEED : -MIN_SPEED);
         }
 
         if (x + radius > (float)WINDOW_WIDTH) { 
             x = (float)WINDOW_WIDTH - radius; 
             vx *= -SLOW_DOWN; 
-
             if (abs(vx) < MIN_SPEED) vx = (vx > 0 ? MIN_SPEED : -MIN_SPEED);
         }
 
         if (y - radius < 0) { 
             y = radius; 
             vy *= -SPEED_UP; 
-
             if (abs(vy) > MAX_SPEED) vy = (vy > 0 ? MAX_SPEED : -MAX_SPEED);
         }
 
         if (y + radius > (float)WINDOW_HEIGHT) { 
             y = (float)WINDOW_HEIGHT - radius; 
             vy *= -SPEED_UP; 
-
             if (abs(vy) > MAX_SPEED) vy = (vy > 0 ? MAX_SPEED : -MAX_SPEED);
         }
     }
@@ -196,27 +191,44 @@ void resolveCollision(Ball* b1, Ball* b2) {
 int main() {
     srand(static_cast<unsigned int>(time(0)));
 
-    sf::RenderWindow window(sf::VideoMode({WINDOW_WIDTH, WINDOW_HEIGHT}), "SFML 3.0: Speed Up/Slow Down Walls");
+    bool useQuadtree = true; 
+
+    sf::RenderWindow window(sf::VideoMode({WINDOW_WIDTH, WINDOW_HEIGHT}), "Mode: QUADTREE (Tekan SPASI untuk Ganti)");
     window.setFramerateLimit(60);
 
     vector<Ball> balls;
+
     for (int i = 0; i < NUM_BALLS; i++) {
-        float r = (rand() % 10) + 10; 
-        float startX = rand() % (WINDOW_WIDTH - 40) + 20;
-        float startY = rand() % (WINDOW_HEIGHT - 40) + 20;
+        float r = (rand() % 5) + 5; 
+        float startX = rand() % (WINDOW_WIDTH - 20) + 10;
+        float startY = rand() % (WINDOW_HEIGHT - 20) + 10;
         balls.emplace_back(startX, startY, r);
     }
 
     while (window.isOpen()) {
         while (const auto event = window.pollEvent()) {
+
             if (event->is<sf::Event::Closed>()) {
                 window.close();
+            }
+
+            else if (const auto* keyEvent = event->getIf<sf::Event::KeyPressed>()) {
+                if (keyEvent->code == sf::Keyboard::Key::Space) {
+
+                    useQuadtree = !useQuadtree;
+
+                    if (useQuadtree) {
+                        window.setTitle("Mode: QUADTREE (Cepat) - Tekan SPASI untuk Ganti");
+                    } else {
+                        window.setTitle("Mode: BRUTE FORCE (Lambat) - Tekan SPASI untuk Ganti");
+                    }
+                }
             }
         }
 
         for (auto& ball : balls) ball.update();
 
-        if (!USE_QUADTREE) {
+        if (!useQuadtree) {
             for (size_t i = 0; i < balls.size(); i++) {
                 for (size_t j = i + 1; j < balls.size(); j++) {
                     resolveCollision(&balls[i], &balls[j]);

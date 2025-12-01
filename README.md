@@ -13,8 +13,12 @@ Project ini mensimulasikan N-body physics menggunakan Euler Integration untuk pe
 - C++ 17
 
 # Algoritma Yang Digunakan
-- Brute Force
-- Quadtree
+#### **Brute Force**
+Algoritma ini berfungsi mengambil satu bola dan mengecek bola tersebut terhadap semua bola lainnya.
+
+#### **Quadtree**
+Algoritma ini memecah layar menjadi kotak-kotak kecil secara rekursif. Dan hanya mengambil bola yang berada di kotak yang sama, sehingga tidak perlu mengecek semua bola.
+
 
 
 

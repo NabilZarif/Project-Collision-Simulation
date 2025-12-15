@@ -19,6 +19,17 @@ Algoritma ini berfungsi mengambil satu bola dan mengecek bola tersebut terhadap 
 #### **Quadtree**
 Algoritma ini memecah layar menjadi kotak-kotak kecil secara rekursif. Dan hanya mengambil bola yang berada di kotak yang sama, sehingga tidak perlu mengecek semua bola.
 
+# Penjelasan Penggunaan Algoritma
+| Metode | Kompleksitas Waktu | Deskripsi |
+| :--- | :--- | :--- |
+| **Brute Force** | $O(N^2)$ | Membandingkan semua pasangan partikel yang ada ($\frac{N(N-1)}{2}$ cek per *frame*).  |
+| **Quadtree** | $O(N \log N)$ | Membagi ruang menjadi node rekursif untuk mempercepat pencarian partikel, dan hanya memeriksa partikel di area terdekat/diminta.  |
+
+# How To Switch Algorythm?
+Untuk project kali ini, saya menggunakan tombol spasi untuk switch antar algoritma. Baik untuk quadtree ke bruteforce dan sebaliknya, bruteforce ke quadtree.
+
+#
+
 
 
 

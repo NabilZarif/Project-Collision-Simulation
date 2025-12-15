@@ -34,8 +34,10 @@ Proyek simulasi *N-body collision* ini mendemonstrasikan efektivitas struktur da
 # Lampiran
 ---
 ## Kode Algoritma Bruteforce
+https://github.com/NabilZarif/Project-Collision-Simulation/issues/1
 
 ## Kode Algoritma Quadtree
+
 
 
 

@@ -38,8 +38,15 @@ Proyek simulasi *N-body collision* ini mendemonstrasikan efektivitas struktur da
 
 ## Kode Algoritma Quadtree
 ### Bagian Logika
+<img width="734" height="543" alt="Image" src="https://github.com/user-attachments/assets/faa8fbae-aeed-4228-a598-e971933deee5" />
+
+<img width="627" height="502" alt="Image" src="https://github.com/user-attachments/assets/f3737495-921d-4163-9980-ceef77307813" />
+
+<img width="491" height="348" alt="Image" src="https://github.com/user-attachments/assets/2cbc40ee-ec99-4ddc-a706-5c50c4f220db" />
 
 ### Bagian Eksekusi
+<img width="546" height="307" alt="Image" src="https://github.com/user-attachments/assets/135a1a40-d903-451a-87cf-2bec905cd514" />
+
 
 
 
